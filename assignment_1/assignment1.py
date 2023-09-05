@@ -52,6 +52,10 @@ sums_df = pd.DataFrame({'feature': bodyfat2.columns, 'sum': bodyfat2_sums})
 result_df = pd.merge(means_df, medians_df, on='feature')
 result_df = pd.merge(result_df, sums_df, on='feature')
 
+# Exclude unwanted features
+excluded_features = ['density', 'bodyfat', 'age', 'weight', 'height']
+result_df = result_df.query('feature not in @excluded_features')
+
 print(result_df.to_string(header=True, index=False, col_space=10))
 print()
 
